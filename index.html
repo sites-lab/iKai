@@ -41,23 +41,27 @@
         /* Stiluri pentru selectorul de limbă */
         .language-selector {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
             z-index: 1000;
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
         }
 
         .lang-btn {
             background: var(--card-bg);
             border: 2px solid var(--primary-green);
             color: var(--primary-green);
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 15px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow);
+            font-size: 0.9rem;
         }
 
         .lang-btn:hover, .lang-btn.active {
@@ -164,7 +168,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2047&q=80') no-repeat center center/cover;
             color: var(--text-light);
             padding: 0 5%;
         }
@@ -234,18 +238,19 @@
             justify-content: center;
             margin-bottom: 40px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
         .category-btn {
             background: var(--card-bg);
             border: 2px solid var(--primary-green);
             color: var(--primary-green);
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .category-btn:hover, .category-btn.active {
@@ -255,8 +260,8 @@
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .menu-item {
@@ -276,14 +281,31 @@
         }
 
         .menu-item-img {
-            height: 200px;
+            height: 180px;
             width: 100%;
-            background-color: var(--light-green);
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-green);
-            font-size: 3rem;
+            color: var(--text-light);
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .menu-item-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item-img i {
+            position: relative;
+            z-index: 1;
         }
 
         .menu-item-content {
@@ -297,19 +319,19 @@
         }
 
         .menu-item-title h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--text-dark);
         }
 
         .menu-item-price {
             color: var(--primary-green);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .menu-item-desc {
             color: #666;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* Stiluri pentru secțiunea Despre Noi */
@@ -324,7 +346,7 @@
             flex: 1;
             min-width: 300px;
             height: 400px;
-            background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
+            background: linear-gradient(45deg, var(--primary-green), var(--secondary-green)), url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -535,6 +557,16 @@
             .hamburger.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(6px, -6px);
             }
+
+            /* Meniu pe 2 rânduri pentru dispozitive mobile */
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -555,8 +587,14 @@
             }
             
             .language-selector {
-                top: 80px;
+                top: 70px;
                 right: 10px;
+                padding: 6px;
+            }
+
+            .lang-btn {
+                padding: 5px 10px;
+                font-size: 0.8rem;
             }
         }
 
@@ -576,6 +614,12 @@
             
             .category-btn {
                 width: 80%;
+                padding: 8px 16px;
+            }
+
+            .language-selector {
+                flex-direction: column;
+                gap: 5px;
             }
         }
     </style>
@@ -585,7 +629,7 @@
     <div class="language-selector">
         <button class="lang-btn active" data-lang="ro">RO</button>
         <button class="lang-btn" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="uk">UK</button>
+        <button class="lang-btn" data-lang="UA">UA</button>
     </div>
 
     <!-- Header și navigație -->
@@ -664,7 +708,7 @@
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <p data-key="address">Strada Exemplu, nr. 123</p>
+                            <p data-key="address">Strada Amețeilor 5</p>
                             <p>București, România</p>
                         </div>
                     </div>
@@ -723,95 +767,103 @@
     </footer>
 
     <script>
-        // Datele pentru meniu
+        // Datele pentru meniu cu imagini funcționale
         const menuItems = [
             {
                 id: 1,
                 name: "Espresso",
                 name_en: "Espresso",
-                name_uk: "Еспресо",
+                name_UA: "Еспресо",
                 price: "12 lei",
                 category: "coffee",
                 description: "Cafea espresso autentică, preparată din boabe de specialitate",
                 description_en: "Authentic espresso coffee, prepared from specialty beans",
-                description_uk: "Автентична кава еспресо, приготована з зерен спеціальності"
+                description_UA: "Автентична кава еспресо, приготована з зерен спеціальності",
+                image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
             },
             {
                 id: 2,
                 name: "Cappuccino",
                 name_en: "Cappuccino",
-                name_uk: "Капучіно",
+                name_UA: "Капучіно",
                 price: "15 lei",
                 category: "coffee",
                 description: "Espresso cu lapte spumos și un strat de spumă de lapte",
                 description_en: "Espresso with foamed milk and a layer of milk foam",
-                description_uk: "Еспресо з спіненним молоком і шаром молочної піни"
+                description_UA: "Еспресо з спіненним молоком і шаром молочної піни",
+                image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
             },
             {
                 id: 3,
                 name: "Latte Macchiato",
                 name_en: "Latte Macchiato",
-                name_uk: "Лате макіато",
+                name_UA: "Лате макіато",
                 price: "16 lei",
                 category: "coffee",
                 description: "Stratificare perfectă de lapte, espresso și spumă",
                 description_en: "Perfect layering of milk, espresso and foam",
-                description_uk: "Ідеальне шарування молока, еспресо та піни"
+                description_UA: "Ідеальне шарування молока, еспресо та піни",
+                image: "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
             },
             {
                 id: 4,
                 name: "Flat White",
                 name_en: "Flat White",
-                name_uk: "Флет вайт",
+                name_UA: "Флет вайт",
                 price: "15 lei",
                 category: "coffee",
                 description: "Dublu espresso cu lapte cremos și textură fină",
                 description_en: "Double espresso with creamy milk and fine texture",
-                description_uk: "Подвійний еспресо з вершковим молоком і тонкою текстурою"
+                description_UA: "Подвійний еспресо з вершковим молоком і тонкою текстурою",
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
             },
             {
                 id: 5,
                 name: "Ceai Verde",
                 name_en: "Green Tea",
-                name_uk: "Зелений чай",
+                name_UA: "Зелений чай",
                 price: "10 lei",
                 category: "tea",
                 description: "Ceai verde de calitate superioară, cu arome delicate",
                 description_en: "High quality green tea with delicate aromas",
-                description_uk: "Високоякісний зелений чай з ніжними ароматами"
+                description_UA: "Високоякісний зелений чай з ніжними ароматами",
+                image: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
             },
             {
                 id: 6,
                 name: "Ceai de Fructe",
                 name_en: "Fruit Tea",
-                name_uk: "Фруктовий чай",
+                name_UA: "Фруктовий чай",
                 price: "12 lei",
                 category: "tea",
                 description: "Amestec vibrant de fructe uscate și arome naturale",
                 description_en: "Vibrant blend of dried fruits and natural flavors",
-                description_uk: "Яскрава суміш сухофруктів та натуральних ароматів"
+                description_UA: "Яскрава суміш сухофруктів та натуральних ароматів",
+                image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1734&q=80"
             },
             {
                 id: 7,
                 name: "Croissant",
                 name_en: "Croissant",
-                name_uk: "Круасан",
+                name_UA: "Круасан",
                 price: "8 lei",
                 category: "pastries",
                 description: "Croissant proaspăt, cu unt, fraged și auriu",
                 description_en: "Fresh croissant, with butter, tender and golden",
-                description_uk: "Свіжий круасан, з маслом, ніжний і золотистий"
+                description_UA: "Свіжий круасан, з маслом, ніжний і золотистий",
+                image: "https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80"
             },
             {
                 id: 8,
                 name: "Muffin de Ciocolată",
                 name_en: "Chocolate Muffin",
-                name_uk: "Шоколадний мафін",
+                name_UA: "Шоколадний мафін",
                 price: "10 lei",
                 category: "pastries",
                 description: "Muffin umed și aromat cu bucăți de ciocolată",
                 description_en: "Moist and flavorful muffin with chocolate chunks",
-                description_uk: "Вологий і ароматний мафін з шматочками шоколаду"
+                description_UA: "Вологий і ароматний мафін з шматочками шоколаду",
+                image: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80"
             }
         ];
 
@@ -837,7 +889,7 @@
                 "about-text3": "Vă așteptăm să descoperiți împreună cu noi aromele unice și povestile din spatele fiecărei cești de cafea.",
                 "contact-title": "Contact",
                 "contact-info": "Informații de contact",
-                "address": "Strada Exemplu, nr. 123",
+                "address": "Strada Amețeilor 5",
                 "follow-us": "Urmărește-ne",
                 "footer-text": "Cafenea de specialitate în inima Bucureștiului"
             },
@@ -861,11 +913,11 @@
                 "about-text3": "We invite you to discover with us the unique flavors and stories behind each cup of coffee.",
                 "contact-title": "Contact",
                 "contact-info": "Contact Information",
-                "address": "Example Street, no. 123",
+                "address": "Strada Amețeilor 5",
                 "follow-us": "Follow Us",
                 "footer-text": "Specialty coffee shop in the heart of Bucharest"
             },
-            uk: {
+            UA: {
                 "home": "Головна",
                 "menu": "Меню",
                 "about": "Про нас",
@@ -885,7 +937,7 @@
                 "about-text3": "Запрошуємо вас разом з нами відкрити для себе унікальні смаки та історії, що стоять за кожною чашкою кави.",
                 "contact-title": "Контакти",
                 "contact-info": "Контактна інформація",
-                "address": "Вул. Приклад, буд. 123",
+                "address": "Вул. Амецейлор 5",
                 "follow-us": "Слідкуйте за нами",
                 "footer-text": "Кав'ярня спеціальності в серці Бухареста"
             }
@@ -978,12 +1030,12 @@
                     itemName = item.name_en;
                     itemDescription = item.description_en;
                 } else {
-                    itemName = item.name_uk;
-                    itemDescription = item.description_uk;
+                    itemName = item.name_UA;
+                    itemDescription = item.description_UA;
                 }
                 
                 menuItem.innerHTML = `
-                    <div class="menu-item-img">
+                    <div class="menu-item-img" style="background-image: url('${item.image}')">
                         <i class="fas ${getIconForCategory(item.category)}"></i>
                     </div>
                     <div class="menu-item-content">
