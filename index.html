@@ -3,19 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iKai Coffee Shop</title>
+    <title>iKai - Cafenea de specialitate</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-green: #2e7d32;
-            --light-green: #4caf50;
-            --dark-green: #1b5e20;
-            --cream: #f5f5f5;
-            --dark-text: #333;
-            --light-text: #fff;
-            --transition: all 0.3s ease;
-        }
-
+        /* Reset și stiluri de bază */
         * {
             margin: 0;
             padding: 0;
@@ -23,86 +14,112 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        :root {
+            --primary-green: #2e7d32;
+            --secondary-green: #4caf50;
+            --light-green: #e8f5e9;
+            --dark-green: #1b5e20;
+            --accent-color: #ff9800;
+            --text-dark: #333;
+            --text-light: #fff;
+            --background: #f9f9f9;
+            --card-bg: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: var(--cream);
-            color: var(--dark-text);
+            background-color: var(--background);
+            color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: var(--light-text);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
+        /* Stiluri pentru selectorul de limbă */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             z-index: 1000;
-            animation: slideDown 0.5s ease-out;
+            display: flex;
+            gap: 10px;
         }
 
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        .lang-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
         }
 
-        .header-container {
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--primary-green);
+            color: var(--text-light);
+        }
+
+        /* Stiluri pentru header și navigație */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+        }
+
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary-green);
-            text-decoration: none;
-            transition: var(--transition);
+            display: flex;
+            align-items: center;
         }
 
-        .logo:hover {
-            transform: scale(1.05);
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
         }
 
-        .logo span {
-            color: var(--dark-green);
-        }
-
-        nav ul {
+        .nav-menu {
             display: flex;
             list-style: none;
         }
 
-        nav ul li {
-            margin-left: 25px;
+        .nav-menu li {
+            margin-left: 30px;
         }
 
-        nav ul li a {
+        .nav-menu a {
             text-decoration: none;
-            color: var(--dark-text);
-            font-weight: 500;
-            transition: var(--transition);
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
             position: relative;
         }
 
-        nav ul li a:hover {
+        .nav-menu a:hover {
             color: var(--primary-green);
         }
 
-        nav ul li a::after {
+        .nav-menu a::after {
             content: '';
             position: absolute;
             width: 0;
@@ -110,339 +127,163 @@
             bottom: -5px;
             left: 0;
             background-color: var(--primary-green);
-            transition: var(--transition);
+            transition: width 0.3s ease;
         }
 
-        nav ul li a:hover::after {
+        .nav-menu a:hover::after {
             width: 100%;
         }
 
-        .language-selector {
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+        }
+
+        .hamburger span {
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary-green);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Stiluri pentru secțiuni */
+        section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            height: 100vh;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .language-selector select {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .language-selector select:hover {
-            border-color: var(--primary-green);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--dark-text);
-            transition: var(--transition);
-        }
-
-        .mobile-menu-btn:hover {
-            color: var(--primary-green);
-            transform: scale(1.1);
-        }
-
-        /* Mobile Menu Styles */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background-color: white;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            z-index: 1001;
-            transition: var(--transition);
-            padding: 80px 30px 30px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-menu.active {
-            right: 0;
-            animation: slideInRight 0.3s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                right: -100%;
-            }
-            to {
-                right: 0;
-            }
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--dark-text);
-            transition: var(--transition);
-        }
-
-        .mobile-menu-close:hover {
-            color: var(--primary-green);
-            transform: rotate(90deg);
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .mobile-nav ul li {
-            margin-bottom: 15px;
-            animation: fadeInUp 0.5s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .mobile-nav ul li:nth-child(1) { animation-delay: 0.1s; }
-        .mobile-nav ul li:nth-child(2) { animation-delay: 0.2s; }
-        .mobile-nav ul li:nth-child(3) { animation-delay: 0.3s; }
-        .mobile-nav ul li:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .mobile-nav ul li a {
-            text-decoration: none;
-            color: var(--dark-text);
-            font-size: 18px;
-            font-weight: 500;
-            display: block;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            transition: var(--transition);
-        }
-
-        .mobile-nav ul li a:hover {
-            color: var(--primary-green);
-            padding-left: 10px;
-        }
-
-        .mobile-language-selector {
-            margin-top: auto;
-            animation: fadeIn 0.5s ease-out 0.5s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .mobile-language-selector h4 {
-            margin-bottom: 15px;
-            color: var(--dark-green);
-        }
-
-        .mobile-language-selector select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .mobile-language-selector select:hover {
-            border-color: var(--primary-green);
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: none;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            color: var(--light-text);
-            padding: 120px 0;
+            justify-content: center;
             text-align: center;
-            animation: zoomIn 1s ease-out;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            color: var(--text-light);
+            padding: 0 5%;
         }
 
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(1.1);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .hero p {
-            font-size: 20px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
         }
 
         .btn {
             display: inline-block;
             background-color: var(--primary-green);
-            color: var(--light-text);
+            color: var(--text-light);
             padding: 12px 30px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            transition: var(--transition);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
             border: 2px solid var(--primary-green);
-            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
 
         .btn:hover {
             background-color: transparent;
-            color: var(--light-text);
-            border-color: var(--light-text);
+            color: var(--primary-green);
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Menu Section */
         .section-title {
             text-align: center;
-            margin: 60px 0 40px;
+            margin-bottom: 60px;
             position: relative;
-            animation: fadeIn 0.8s ease-out;
         }
 
         .section-title h2 {
-            font-size: 36px;
-            color: var(--dark-green);
+            font-size: 2.5rem;
+            color: var(--primary-green);
             display: inline-block;
-            padding-bottom: 10px;
         }
 
         .section-title h2::after {
             content: '';
             position: absolute;
-            width: 80px;
+            width: 70px;
             height: 3px;
-            background-color: var(--primary-green);
-            bottom: 0;
+            background-color: var(--accent-color);
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            animation: expandWidth 0.8s ease-out 0.5s both;
         }
 
-        @keyframes expandWidth {
-            from { width: 0; }
-            to { width: 80px; }
-        }
-
+        /* Stiluri pentru meniu */
         .menu-categories {
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
             gap: 15px;
-            animation: fadeIn 0.8s ease-out 0.3s both;
         }
 
         .category-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
             padding: 10px 20px;
-            background-color: white;
-            border: 1px solid #ddd;
             border-radius: 30px;
             cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .category-btn.active, .category-btn:hover {
-            background-color: var(--primary-green);
-            color: white;
-            border-color: var(--primary-green);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-green);
+            color: var(--text-light);
         }
 
-        .menu-items {
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .menu-item {
-            background-color: white;
-            border-radius: 10px;
+            background: var(--card-bg);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            animation: fadeInUp 0.6s ease-out;
-            animation-fill-mode: both;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
         }
 
-        .menu-item:nth-child(1) { animation-delay: 0.1s; }
-        .menu-item:nth-child(2) { animation-delay: 0.2s; }
-        .menu-item:nth-child(3) { animation-delay: 0.3s; }
-        .menu-item:nth-child(4) { animation-delay: 0.4s; }
-        .menu-item:nth-child(5) { animation-delay: 0.5s; }
-        .menu-item:nth-child(6) { animation-delay: 0.6s; }
-        .menu-item:nth-child(7) { animation-delay: 0.7s; }
-        .menu-item:nth-child(8) { animation-delay: 0.8s; }
-
         .menu-item:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .menu-item-img {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-            transition: var(--transition);
-        }
-
-        .menu-item:hover .menu-item-img {
-            transform: scale(1.05);
+            height: 200px;
+            width: 100%;
+            background-color: var(--light-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 3rem;
         }
 
         .menu-item-content {
@@ -456,134 +297,98 @@
         }
 
         .menu-item-title h3 {
-            font-size: 18px;
-            color: var(--dark-green);
+            font-size: 1.3rem;
+            color: var(--text-dark);
         }
 
         .menu-item-price {
-            font-weight: 700;
             color: var(--primary-green);
-            transition: var(--transition);
-        }
-
-        .menu-item:hover .menu-item-price {
-            transform: scale(1.1);
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .menu-item-desc {
             color: #666;
-            font-size: 14px;
+            font-size: 0.95rem;
         }
 
-        /* About Section */
-        .about {
-            background-color: white;
-            padding: 80px 0;
-        }
-
-        .about-content {
+        /* Stiluri pentru secțiunea Despre Noi */
+        .about-container {
             display: flex;
             align-items: center;
             gap: 50px;
+            flex-wrap: wrap;
         }
 
-        .about-text {
+        .about-img {
             flex: 1;
-            animation: fadeInLeft 0.8s ease-out;
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .about-text h2 {
-            font-size: 36px;
-            color: var(--dark-green);
-            margin-bottom: 20px;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .about-image {
-            flex: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            animation: fadeInRight 0.8s ease-out;
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: var(--transition);
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-        }
-
-        .contact-content {
+            min-width: 300px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
+            border-radius: 15px;
             display: flex;
-            gap: 50px;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+        }
+
+        /* Stiluri pentru secțiunea Contact */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
         .contact-info {
-            flex: 1;
-            animation: fadeInLeft 0.8s ease-out;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
         }
 
         .contact-info h3 {
-            font-size: 24px;
-            color: var(--dark-green);
+            font-size: 1.5rem;
             margin-bottom: 20px;
+            color: var(--primary-green);
         }
 
         .contact-details {
             margin-bottom: 30px;
         }
 
-        .contact-detail {
+        .contact-item {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            transition: var(--transition);
         }
 
-        .contact-detail:hover {
-            transform: translateX(5px);
-        }
-
-        .contact-detail i {
-            width: 30px;
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background: var(--light-green);
             color: var(--primary-green);
-            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
         }
 
         .social-links {
@@ -592,827 +397,635 @@
         }
 
         .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--light-green);
+            color: var(--primary-green);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-green);
-            color: white;
-            border-radius: 50%;
             text-decoration: none;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
-            background-color: var(--dark-green);
-            transform: translateY(-5px) scale(1.1);
+            background: var(--primary-green);
+            color: var(--text-light);
+            transform: translateY(-5px);
         }
 
-        .map {
-            flex: 1;
-            border-radius: 10px;
+        .map-container {
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            animation: fadeInRight 0.8s ease-out;
+            box-shadow: var(--shadow);
+            height: 400px;
         }
 
-        .map iframe {
+        .map-container iframe {
             width: 100%;
             height: 100%;
-            min-height: 300px;
             border: none;
-            transition: var(--transition);
         }
 
-        .map:hover iframe {
-            transform: scale(1.02);
-        }
-
-        /* Footer */
+        /* Stiluri pentru footer */
         footer {
-            background-color: var(--dark-green);
-            color: var(--light-text);
-            padding: 40px 0 20px;
-            animation: fadeIn 0.8s ease-out;
+            background: var(--dark-green);
+            color: var(--text-light);
+            padding: 40px 5%;
+            text-align: center;
         }
 
         .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
         .footer-logo {
-            font-size: 24px;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
-            margin-bottom: 15px;
-            display: inline-block;
-            transition: var(--transition);
-        }
-
-        .footer-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .footer-links h4 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .footer-links h4::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 2px;
-            background-color: var(--light-green);
-            bottom: 0;
-            left: 0;
-            animation: expandWidth 0.8s ease-out 0.5s both;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links ul li {
             margin-bottom: 10px;
-            transition: var(--transition);
         }
 
-        .footer-links ul li:hover {
-            transform: translateX(5px);
-        }
-
-        .footer-links ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links ul li a:hover {
-            color: var(--light-text);
-            padding-left: 5px;
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
         }
 
         .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: #ccc;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
-        /* Floating Background Elements */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
+        /* Animații */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .floating-element {
-            position: absolute;
-            background: var(--primary-green);
-            opacity: 0.1;
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
-        /* Responsive Styles */
+        /* Stiluri responsive */
         @media (max-width: 992px) {
-            .about-content, .contact-content {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                background: var(--card-bg);
+                width: 80%;
+                height: calc(100vh - 70px);
                 flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: right 0.5s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
             }
             
-            .about-image, .map {
-                width: 100%;
+            .nav-menu.active {
+                right: 0;
             }
             
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .nav-menu li {
+                margin: 20px 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
             }
         }
 
         @media (max-width: 768px) {
-            .header-container {
-                flex-wrap: wrap;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            nav {
-                display: none;
-            }
-            
-            .language-selector {
-                display: none;
-            }
-            
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.2rem;
             }
             
             .hero p {
-                font-size: 18px;
+                font-size: 1.1rem;
             }
             
-            .footer-content {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .about-container, .contact-container {
                 flex-direction: column;
-                gap: 30px;
             }
             
-            /* MOBILE MENU - 2 COLUMNS */
-            .menu-items {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 14px;
-            }
-            
-            .menu-item {
-                margin-bottom: 0;
-            }
-            
-            .menu-item-img {
-                height: 120px;
-            }
-            
-            .menu-item-content {
-                padding: 12px;
-            }
-            
-            .menu-item-title h3 {
-                font-size: 14px;
-            }
-            
-            .menu-item-desc {
-                font-size: 12px;
-                line-height: 1.3;
-                margin-bottom: 8px;
-            }
-            
-            .menu-item-price {
-                font-size: 14px;
+            .language-selector {
+                top: 80px;
+                right: 10px;
             }
         }
 
         @media (max-width: 576px) {
-            .menu-items {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .menu-grid {
                 grid-template-columns: 1fr;
             }
             
             .menu-categories {
-                gap: 10px;
+                flex-direction: column;
+                align-items: center;
             }
             
             .category-btn {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-            
-            .hero {
-                padding: 80px 0;
+                width: 80%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Floating Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
-        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; right: 10%; animation-delay: 2s;"></div>
-        <div class="floating-element" style="width: 80px; height: 80px; bottom: 20%; left: 20%; animation-delay: 4s;"></div>
+    <!-- Selector de limbă -->
+    <div class="language-selector">
+        <button class="lang-btn active" data-lang="ro">RO</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="uk">UK</button>
     </div>
 
-    <!-- Header -->
+    <!-- Header și navigație -->
     <header>
-        <div class="container header-container">
-            <a href="#" class="logo">i<span>Kai</span></a>
-            
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <nav>
-                <ul>
-                    <li><a href="#home" data-key="home">Acasă</a></li>
-                    <li><a href="#menu" data-key="menu">Meniu</a></li>
-                    <li><a href="#about" data-key="about">Despre Noi</a></li>
-                    <li><a href="#contact" data-key="contact">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <div class="language-selector">
-                <select id="language-select">
-                    <option value="ro">Română</option>
-                    <option value="en">English</option>
-                    <option value="uk">Українська</option>
-                </select>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-coffee"></i>
+                iKai
             </div>
-        </div>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div class="overlay"></div>
-    <div class="mobile-menu">
-        <button class="mobile-menu-close">
-            <i class="fas fa-times"></i>
-        </button>
-        
-        <nav class="mobile-nav">
-            <ul>
+            <ul class="nav-menu">
                 <li><a href="#home" data-key="home">Acasă</a></li>
                 <li><a href="#menu" data-key="menu">Meniu</a></li>
                 <li><a href="#about" data-key="about">Despre Noi</a></li>
                 <li><a href="#contact" data-key="contact">Contact</a></li>
             </ul>
-        </nav>
-        
-        <div class="mobile-language-selector">
-            <h4 data-key="language">Limba</h4>
-            <select id="mobile-language-select">
-                <option value="ro">Română</option>
-                <option value="en">English</option>
-                <option value="uk">Українська</option>
-            </select>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1 data-key="hero-title">Bun venit la iKai Coffee</h1>
-            <p data-key="hero-text">Experimentează amestecul perfect de tradiție și inovație în fiecare ceașcă. Boabele noastre atent selecționate și abordarea artizanală creează o experiență de cafea de neuitat.</p>
-            <a href="#menu" class="btn" data-key="view-menu">Vezi Meniul</a>
+    <!-- Secțiunea Hero / Acasă -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-key="hero-title">Bun venit la iKai</h1>
+            <p data-key="hero-subtitle">Cafenea de specialitate unde fiecare ceașcă spune o poveste</p>
+            <a href="#menu" class="btn pulse" data-key="view-menu">Vezi Meniul</a>
         </div>
     </section>
 
-    <!-- Menu Section -->
-    <section id="menu">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-key="our-menu">Meniul Nostru</h2>
-            </div>
-            
-            <div class="menu-categories">
-                <button class="category-btn active" data-category="all" data-key="all">Toate</button>
-                <button class="category-btn" data-category="coffee" data-key="coffee">Cafea</button>
-                <button class="category-btn" data-category="tea" data-key="tea">Ceai</button>
-                <button class="category-btn" data-category="pastries" data-key="pastries">Patiserie</button>
-                <button class="category-btn" data-category="specialty" data-key="specialty">Băuturi Speciale</button>
-            </div>
-            
-            <div class="menu-items">
-                <!-- Coffee Items -->
-                <div class="menu-item" data-category="coffee">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="espresso">Espresso</h3>
-                            <span class="menu-item-price" data-price="15">15 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="espresso-desc">O cafea bogată și concentrată preparată prin forțarea apei fierbinți prin boabe de cafea măcinate fin.</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="coffee">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="cappuccino">Cappuccino</h3>
-                            <span class="menu-item-price" data-price="18">18 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="cappuccino-desc">Părți egale de espresso, lapte aburit și spumă de lapte pentru o experiență de cafea echilibrată.</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="coffee">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="latte">Latte</h3>
-                            <span class="menu-item-price" data-price="19">19 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="latte-desc">Espresso neted cu lapte aburit și un strat ușor de spumă.</p>
-                    </div>
-                </div>
-                
-                <!-- Tea Items -->
-                <div class="menu-item" data-category="tea">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="earl-grey">Earl Grey</h3>
-                            <span class="menu-item-price" data-price="13">13 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="earl-grey-desc">Ceai negru clasic aromatizat cu ulei de bergamotă.</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="tea">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1597481499750-3e11b15b53e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="green-tea">Ceai Verde</h3>
-                            <span class="menu-item-price" data-price="14">14 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="green-tea-desc">Ceai ușor și revigorant cu note subtile de iarbă.</p>
-                    </div>
-                </div>
-                
-                <!-- Pastries -->
-                <div class="menu-item" data-category="pastries">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1555507036-ab794f27d2e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="croissant">Croissant</h3>
-                            <span class="menu-item-price" data-price="12">12 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="croissant-desc">Produs de patiserie cu unt, foietos, perfect cu cafeaua ta de dimineață.</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="pastries">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="chocolate-muffin">Muffin de Ciocolată</h3>
-                            <span class="menu-item-price" data-price="14">14 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="chocolate-muffin-desc">Muffin bogat, cu ciocolată, cu o textură moale și umedă.</p>
-                    </div>
-                </div>
-                
-                <!-- Specialty Drinks -->
-                <div class="menu-item" data-category="specialty">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="matcha-latte">Matcha Latte</h3>
-                            <span class="menu-item-price" data-price="21">21 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="matcha-latte-desc">Pudră vibrantă de ceai verde amestecată cu lapte aburit.</p>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="specialty">
-                    <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');"></div>
-                    <div class="menu-item-content">
-                        <div class="menu-item-title">
-                            <h3 data-key="iced-caramel">Iced Caramel Macchiato</h3>
-                            <span class="menu-item-price" data-price="23">23 RON</span>
-                        </div>
-                        <p class="menu-item-desc" data-key="iced-caramel-desc">Espresso turnat peste lapte și gheață, apoi aromatizat cu caramel.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Secțiunea Meniu -->
+    <section id="menu" class="menu">
+        <div class="section-title">
+            <h2 data-key="menu-title">Meniu</h2>
+        </div>
+        <div class="menu-categories">
+            <button class="category-btn active" data-category="all" data-key="all">Toate</button>
+            <button class="category-btn" data-category="coffee" data-key="coffee">Cafea</button>
+            <button class="category-btn" data-category="tea" data-key="tea">Ceai</button>
+            <button class="category-btn" data-category="pastries" data-key="pastries">Patiserie</button>
+        </div>
+        <div class="menu-grid" id="menu-items">
+            <!-- Elementele meniului vor fi adăugate dinamic cu JavaScript -->
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-key="about-us">Despre Noi</h2>
+    <!-- Secțiunea Despre Noi -->
+    <section id="about" class="about">
+        <div class="section-title">
+            <h2 data-key="about-title">Despre Noi</h2>
+        </div>
+        <div class="about-container">
+            <div class="about-img">
+                <i class="fas fa-heart"></i>
             </div>
-            
             <div class="about-content">
-                <div class="about-text">
-                    <h2 data-key="our-story">Povestea Noastră</h2>
-                    <p data-key="about-text-1">iKai Coffee a fost fondată în 2020 cu o misiune simplă: a crea un spațiu primitor unde oamenii se pot bucura de cafea excepțională și să se conecteze cu comunitatea lor.</p>
-                    <p data-key="about-text-2">Ne aprovizionăm boabele direct de la ferme durabile din întreaga lume, asigurând atât calitatea, cât și practicile etice. Barista noștri calificați sunt instruiți să scoată la iveală ce este mai bun din fiecare boabă, creând băuturi care sunt atât delicioase, cât și memorabile.</p>
-                    <p data-key="about-text-3">Dincolo de cafea, suntem dedicați să fim o forță pozitivă în cartierul nostru, găzduind artiști locali, sprijinind inițiative comunitare și reducând impactul nostru asupra mediului prin compostare și ambalaje durabile.</p>
-                </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="iKai Coffee Shop Interior">
-                </div>
+                <h3 data-key="about-subtitle">Pasiunea noastră pentru cafea</h3>
+                <p data-key="about-text1">iKai este mai mult decât o simplă cafenea - este un spațiu unde pasiunea pentru cafea de specialitate se întâlnește cu arta preparării acesteia. Am creat un loc cald și primitor unde clienții noștri se pot bucura de cele mai fine boabe de cafea, selecționate cu grijă din cele mai bune regiuni din lume.</p>
+                <p data-key="about-text2">Echipa noastră de baristi experimentați este dedicată să vă ofere o experiență autentică și memorabilă. Fiecare băutură pe care o pregătim este o expresie a pasiunii noastre pentru calitate și inovație.</p>
+                <p data-key="about-text3">Vă așteptăm să descoperiți împreună cu noi aromele unice și povestile din spatele fiecărei cești de cafea.</p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-key="contact">Contact</h2>
+    <!-- Secțiunea Contact -->
+    <section id="contact" class="contact">
+        <div class="section-title">
+            <h2 data-key="contact-title">Contact</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3 data-key="contact-info">Informații de contact</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p data-key="address">Strada Exemplu, nr. 123</p>
+                            <p>București, România</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p>+40 712 345 678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>contact@ikai.ro</p>
+                        </div>
+                    </div>
+                </div>
+                <h3 data-key="follow-us">Urmărește-ne</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/ikai.bucharest/" class="social-link" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/ikai.bucharest/" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@ikai_bucharest" class="social-link" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
             </div>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3 data-key="get-in-touch">Ia Legătura</h3>
-                    <div class="contact-details">
-                        <div class="contact-detail">
-                            <i class="fas fa-envelope"></i>
-                            <span>contact@ikai-coffee.com</span>
-                        </div>
-                        <div class="contact-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>+40 123 456 789</span>
-                        </div>
-                        <div class="contact-detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span data-key="address">Strada Cafea 123, București, România</span>
-                        </div>
-                    </div>
-                    
-                    <h3 data-key="follow-us">Urmărește-ne</h3>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/ikai.bucharest/" class="social-link" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.facebook.com/ikai.bucharest/" class="social-link" target="_blank">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@ikai_bucharest" class="social-link" target="_blank">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.873790728022!2d26.10221577657999!3d44.43608707107206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b2030511cd6ceb%3A0x4ed209bad97ad4c3!2siKai!5e0!3m2!1sen!2s!4v1688659632438!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.215481926635!2d26.0669532!3d44.4646873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b2030511cd6ceb%3A0x4ed209bad97ad4c3!2siKai!5e0!3m2!1sro!2sro!4v1698765432100!5m2!1sro!2sro" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <a href="#" class="footer-logo">iKai</a>
-                    <p data-key="footer-text">Creăm experiențe excepționale de cafea din 2020.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h4 data-key="quick-links">Link-uri Rapide</h4>
-                    <ul>
-                        <li><a href="#home" data-key="home">Acasă</a></li>
-                        <li><a href="#menu" data-key="menu">Meniu</a></li>
-                        <li><a href="#about" data-key="about">Despre Noi</a></li>
-                        <li><a href="#contact" data-key="contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4 data-key="opening-hours">Program</h4>
-                    <ul>
-                        <li data-key="week-hours">Luni - Vineri: 7:00 - 21:00</li>
-                        <li data-key="weekend-hours">Sâmbătă - Duminică: 8:00 - 22:00</li>
-                    </ul>
-                </div>
+        <div class="footer-content">
+            <div class="footer-logo">iKai</div>
+            <p data-key="footer-text">Cafenea de specialitate în inima Bucureștiului</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/ikai.bucharest/" class="social-link" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/ikai.bucharest/" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@ikai_bucharest" class="social-link" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                </a>
             </div>
-            
             <div class="copyright">
-                <p>&copy; 2023 iKai Coffee. <span data-key="rights-reserved">Toate drepturile rezervate.</span></p>
+                <p>&copy; 2023 iKai. Toate drepturile rezervate.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Language data
+        // Datele pentru meniu
+        const menuItems = [
+            {
+                id: 1,
+                name: "Espresso",
+                name_en: "Espresso",
+                name_uk: "Еспресо",
+                price: "12 lei",
+                category: "coffee",
+                description: "Cafea espresso autentică, preparată din boabe de specialitate",
+                description_en: "Authentic espresso coffee, prepared from specialty beans",
+                description_uk: "Автентична кава еспресо, приготована з зерен спеціальності"
+            },
+            {
+                id: 2,
+                name: "Cappuccino",
+                name_en: "Cappuccino",
+                name_uk: "Капучіно",
+                price: "15 lei",
+                category: "coffee",
+                description: "Espresso cu lapte spumos și un strat de spumă de lapte",
+                description_en: "Espresso with foamed milk and a layer of milk foam",
+                description_uk: "Еспресо з спіненним молоком і шаром молочної піни"
+            },
+            {
+                id: 3,
+                name: "Latte Macchiato",
+                name_en: "Latte Macchiato",
+                name_uk: "Лате макіато",
+                price: "16 lei",
+                category: "coffee",
+                description: "Stratificare perfectă de lapte, espresso și spumă",
+                description_en: "Perfect layering of milk, espresso and foam",
+                description_uk: "Ідеальне шарування молока, еспресо та піни"
+            },
+            {
+                id: 4,
+                name: "Flat White",
+                name_en: "Flat White",
+                name_uk: "Флет вайт",
+                price: "15 lei",
+                category: "coffee",
+                description: "Dublu espresso cu lapte cremos și textură fină",
+                description_en: "Double espresso with creamy milk and fine texture",
+                description_uk: "Подвійний еспресо з вершковим молоком і тонкою текстурою"
+            },
+            {
+                id: 5,
+                name: "Ceai Verde",
+                name_en: "Green Tea",
+                name_uk: "Зелений чай",
+                price: "10 lei",
+                category: "tea",
+                description: "Ceai verde de calitate superioară, cu arome delicate",
+                description_en: "High quality green tea with delicate aromas",
+                description_uk: "Високоякісний зелений чай з ніжними ароматами"
+            },
+            {
+                id: 6,
+                name: "Ceai de Fructe",
+                name_en: "Fruit Tea",
+                name_uk: "Фруктовий чай",
+                price: "12 lei",
+                category: "tea",
+                description: "Amestec vibrant de fructe uscate și arome naturale",
+                description_en: "Vibrant blend of dried fruits and natural flavors",
+                description_uk: "Яскрава суміш сухофруктів та натуральних ароматів"
+            },
+            {
+                id: 7,
+                name: "Croissant",
+                name_en: "Croissant",
+                name_uk: "Круасан",
+                price: "8 lei",
+                category: "pastries",
+                description: "Croissant proaspăt, cu unt, fraged și auriu",
+                description_en: "Fresh croissant, with butter, tender and golden",
+                description_uk: "Свіжий круасан, з маслом, ніжний і золотистий"
+            },
+            {
+                id: 8,
+                name: "Muffin de Ciocolată",
+                name_en: "Chocolate Muffin",
+                name_uk: "Шоколадний мафін",
+                price: "10 lei",
+                category: "pastries",
+                description: "Muffin umed și aromat cu bucăți de ciocolată",
+                description_en: "Moist and flavorful muffin with chocolate chunks",
+                description_uk: "Вологий і ароматний мафін з шматочками шоколаду"
+            }
+        ];
+
+        // Datele pentru traduceri
         const translations = {
             ro: {
                 "home": "Acasă",
                 "menu": "Meniu",
                 "about": "Despre Noi",
                 "contact": "Contact",
-                "hero-title": "Bun venit la iKai Coffee",
-                "hero-text": "Experimentează amestecul perfect de tradiție și inovație în fiecare ceașcă. Boabele noastre atent selecționate și abordarea artizanală creează o experiență de cafea de neuitat.",
+                "hero-title": "Bun venit la iKai",
+                "hero-subtitle": "Cafenea de specialitate unde fiecare ceașcă spune o poveste",
                 "view-menu": "Vezi Meniul",
-                "our-menu": "Meniul Nostru",
+                "menu-title": "Meniu",
                 "all": "Toate",
                 "coffee": "Cafea",
                 "tea": "Ceai",
                 "pastries": "Patiserie",
-                "specialty": "Băuturi Speciale",
-                "espresso": "Espresso",
-                "espresso-desc": "O cafea bogată și concentrată preparată prin forțarea apei fierbinți prin boabe de cafea măcinate fin.",
-                "cappuccino": "Cappuccino",
-                "cappuccino-desc": "Părți egale de espresso, lapte aburit și spumă de lapte pentru o experiență de cafea echilibrată.",
-                "latte": "Latte",
-                "latte-desc": "Espresso neted cu lapte aburit și un strat ușor de spumă.",
-                "earl-grey": "Earl Grey",
-                "earl-grey-desc": "Ceai negru clasic aromatizat cu ulei de bergamotă.",
-                "green-tea": "Ceai Verde",
-                "green-tea-desc": "Ceai ușor și revigorant cu note subtile de iarbă.",
-                "croissant": "Croissant",
-                "croissant-desc": "Produs de patiserie cu unt, foietos, perfect cu cafeaua ta de dimineață.",
-                "chocolate-muffin": "Muffin de Ciocolată",
-                "chocolate-muffin-desc": "Muffin bogat, cu ciocolată, cu o textură moale și umedă.",
-                "matcha-latte": "Matcha Latte",
-                "matcha-latte-desc": "Pudră vibrantă de ceai verde amestecată cu lapte aburit.",
-                "iced-caramel": "Iced Caramel Macchiato",
-                "iced-caramel-desc": "Espresso turnat peste lapte și gheață, apoi aromatizat cu caramel.",
-                "about-us": "Despre Noi",
-                "our-story": "Povestea Noastră",
-                "about-text-1": "iKai Coffee a fost fondată în 2020 cu o misiune simplă: a crea un spațiu primitor unde oamenii se pot bucura de cafea excepțională și să se conecteze cu comunitatea lor.",
-                "about-text-2": "Ne aprovizionăm boabele direct de la ferme durabile din întreaga lume, asigurând atât calitatea, cât și practicile etice. Barista noștri calificați sunt instruiți să scoată la iveală ce este mai bun din fiecare boabă, creând băuturi care sunt atât delicioase, cât și memorabile.",
-                "about-text-3": "Dincolo de cafea, suntem dedicați să fim o forță pozitivă în cartierul nostru, găzduind artiști locali, sprijinind inițiative comunitare și reducând impactul nostru asupra mediului prin compostare și ambalaje durabile.",
-                "get-in-touch": "Ia Legătura",
+                "about-title": "Despre Noi",
+                "about-subtitle": "Pasiunea noastră pentru cafea",
+                "about-text1": "iKai este mai mult decât o simplă cafenea - este un spațiu unde pasiunea pentru cafea de specialitate se întâlnește cu arta preparării acesteia. Am creat un loc cald și primitor unde clienții noștri se pot bucura de cele mai fine boabe de cafea, selecționate cu grijă din cele mai bune regiuni din lume.",
+                "about-text2": "Echipa noastră de baristi experimentați este dedicată să vă ofere o experiență autentică și memorabilă. Fiecare băutură pe care o pregătim este o expresie a pasiunii noastre pentru calitate și inovație.",
+                "about-text3": "Vă așteptăm să descoperiți împreună cu noi aromele unice și povestile din spatele fiecărei cești de cafea.",
+                "contact-title": "Contact",
+                "contact-info": "Informații de contact",
+                "address": "Strada Exemplu, nr. 123",
                 "follow-us": "Urmărește-ne",
-                "address": "Strada Cafea 123, București, România",
-                "quick-links": "Link-uri Rapide",
-                "opening-hours": "Program",
-                "week-hours": "Luni - Vineri: 7:00 - 21:00",
-                "weekend-hours": "Sâmbătă - Duminică: 8:00 - 22:00",
-                "footer-text": "Creăm experiențe excepționale de cafea din 2020.",
-                "rights-reserved": "Toate drepturile rezervate.",
-                "language": "Limba"
+                "footer-text": "Cafenea de specialitate în inima Bucureștiului"
             },
             en: {
                 "home": "Home",
                 "menu": "Menu",
                 "about": "About Us",
                 "contact": "Contact",
-                "hero-title": "Welcome to iKai Coffee",
-                "hero-text": "Experience the perfect blend of tradition and innovation in every cup. Our carefully sourced beans and artisanal approach create an unforgettable coffee experience.",
-                "view-menu": "View Our Menu",
-                "our-menu": "Our Menu",
+                "hero-title": "Welcome to iKai",
+                "hero-subtitle": "Specialty coffee shop where every cup tells a story",
+                "view-menu": "View Menu",
+                "menu-title": "Menu",
                 "all": "All",
                 "coffee": "Coffee",
                 "tea": "Tea",
                 "pastries": "Pastries",
-                "specialty": "Specialty Drinks",
-                "espresso": "Espresso",
-                "espresso-desc": "A rich, concentrated coffee brewed by forcing hot water through finely-ground coffee beans.",
-                "cappuccino": "Cappuccino",
-                "cappuccino-desc": "Equal parts espresso, steamed milk, and milk foam for a balanced coffee experience.",
-                "latte": "Latte",
-                "latte-desc": "Smooth espresso with steamed milk and a light layer of foam.",
-                "earl-grey": "Earl Grey",
-                "earl-grey-desc": "Classic black tea flavored with oil of bergamot.",
-                "green-tea": "Green Tea",
-                "green-tea-desc": "Light and refreshing tea with subtle grassy notes.",
-                "croissant": "Croissant",
-                "croissant-desc": "Buttery, flaky pastry perfect with your morning coffee.",
-                "chocolate-muffin": "Chocolate Muffin",
-                "chocolate-muffin-desc": "Rich, chocolatey muffin with a soft, moist texture.",
-                "matcha-latte": "Matcha Latte",
-                "matcha-latte-desc": "Vibrant green tea powder blended with steamed milk.",
-                "iced-caramel": "Iced Caramel Macchiato",
-                "iced-caramel-desc": "Espresso poured over milk and ice, then flavored with caramel.",
-                "about-us": "About Us",
-                "our-story": "Our Story",
-                "about-text-1": "iKai Coffee was founded in 2020 with a simple mission: to create a welcoming space where people can enjoy exceptional coffee and connect with their community.",
-                "about-text-2": "We source our beans directly from sustainable farms around the world, ensuring both quality and ethical practices. Our skilled baristas are trained to bring out the best in every bean, creating beverages that are both delicious and memorable.",
-                "about-text-3": "Beyond coffee, we're committed to being a positive force in our neighborhood, hosting local artists, supporting community initiatives, and reducing our environmental impact through composting and sustainable packaging.",
-                "get-in-touch": "Get in Touch",
+                "about-title": "About Us",
+                "about-subtitle": "Our passion for coffee",
+                "about-text1": "iKai is more than just a coffee shop - it's a space where passion for specialty coffee meets the art of preparation. We've created a warm and welcoming place where our customers can enjoy the finest coffee beans, carefully selected from the best regions in the world.",
+                "about-text2": "Our team of experienced baristas is dedicated to providing you with an authentic and memorable experience. Every drink we prepare is an expression of our passion for quality and innovation.",
+                "about-text3": "We invite you to discover with us the unique flavors and stories behind each cup of coffee.",
+                "contact-title": "Contact",
+                "contact-info": "Contact Information",
+                "address": "Example Street, no. 123",
                 "follow-us": "Follow Us",
-                "address": "123 Coffee Street, Bucharest, Romania",
-                "quick-links": "Quick Links",
-                "opening-hours": "Opening Hours",
-                "week-hours": "Monday - Friday: 7:00 AM - 9:00 PM",
-                "weekend-hours": "Saturday - Sunday: 8:00 AM - 10:00 PM",
-                "footer-text": "Creating exceptional coffee experiences since 2020.",
-                "rights-reserved": "All rights reserved.",
-                "language": "Language"
+                "footer-text": "Specialty coffee shop in the heart of Bucharest"
             },
             uk: {
                 "home": "Головна",
                 "menu": "Меню",
                 "about": "Про нас",
                 "contact": "Контакти",
-                "hero-title": "Ласкаво просимо до iKai Coffee",
-                "hero-text": "Відчуйте ідеальне поєднання традицій та інновацій у кожній чашці. Наші ретельно відібрані зерна та ремісничий підхід створюють незабутній кавовий досвід.",
-                "view-menu": "Переглянути Меню",
-                "our-menu": "Наше Меню",
-                "all": "Все",
+                "hero-title": "Ласкаво просимо до iKai",
+                "hero-subtitle": "Кав'ярня спеціальності, де кожна чашка розповідає історію",
+                "view-menu": "Переглянути меню",
+                "menu-title": "Меню",
+                "all": "Всі",
                 "coffee": "Кава",
                 "tea": "Чай",
                 "pastries": "Випічка",
-                "specialty": "Спеціальні напої",
-                "espresso": "Еспресо",
-                "espresso-desc": "Насичена, концентрована кава, приготовлена шляхом пропускання гарячої води через дрібномелені кавові зерна.",
-                "cappuccino": "Капучіно",
-                "cappuccino-desc": "Рівні частини еспресо, парного молока та молочної піни для збалансованого кавового досвіду.",
-                "latte": "Лате",
-                "latte-desc": "Ніжний еспресо з парним молоком та легким шаром піни.",
-                "earl-grey": "Ерл Грей",
-                "earl-grey-desc": "Класичний чорний чай з ароматом бергамоту.",
-                "green-tea": "Зелений Чай",
-                "green-tea-desc": "Легкий та освіжаючий чай з тонкими трав'янистими нотами.",
-                "croissant": "Круасан",
-                "croissant-desc": "Масляна, листкова випічка, ідеальна з вашою ранковою кавою.",
-                "chocolate-muffin": "Шоколадний Мафін",
-                "chocolate-muffin-desc": "Насичений шоколадний мафін з м'якою, вологою текстурою.",
-                "matcha-latte": "Матча Лате",
-                "matcha-latte-desc": "Яскравий зелений чай у порошку, змішаний з парним молоком.",
-                "iced-caramel": "Каrameльний Макіато з Льодом",
-                "iced-caramel-desc": "Еспресо, налитий поверх молока та льоду, а потім ароматизований карамеллю.",
-                "about-us": "Про нас",
-                "our-story": "Наша Історія",
-                "about-text-1": "iKai Coffee була заснована в 2020 році з простою місією: створити затишний простір, де люди можуть насолоджуватися винятковою кавою та спілкуватися зі своєю спільнотою.",
-                "about-text-2": "Ми закуповуємо наші зерна безпосередньо з екологічних ферм по всьому світу, забезпечуючи як якість, так і етичні практики. Наші досвідчені баристи навчені розкривати найкраще в кожному зерні, створюючи напої, які є одночасно смачними та незабутніми.",
-                "about-text-3": "Окрім кави, ми прагнемо бути позитивною силою в нашому районі, приймаючи місцевих художників, підтримуючи громадські ініціативи та зменшуючи наш вплив на навколишнє середовище через компостування та екологічне пакування.",
-                "get-in-touch": "Зв'язатися",
+                "about-title": "Про нас",
+                "about-subtitle": "Наша пристрасть до кави",
+                "about-text1": "iKai - це більше, ніж просто кав'ярня - це простір, де пристрасть до спеціальної кави зустрічається з мистецтвом приготування. Ми створили затишне та гостинне місце, де наші клієнти можуть насолоджуватися найкращими зернами кави, ретельно відібраними з найкращих регіонів світу.",
+                "about-text2": "Наша команда досвідчених бариста присвячена тому, щоб забезпечити вам автентичний і незабутній досвід. Кожен напій, який ми готуємо, є виразом нашої пристрасті до якості та інновацій.",
+                "about-text3": "Запрошуємо вас разом з нами відкрити для себе унікальні смаки та історії, що стоять за кожною чашкою кави.",
+                "contact-title": "Контакти",
+                "contact-info": "Контактна інформація",
+                "address": "Вул. Приклад, буд. 123",
                 "follow-us": "Слідкуйте за нами",
-                "address": "вул. Кавова 123, Бухарест, Румунія",
-                "quick-links": "Швидкі посилання",
-                "opening-hours": "Години роботи",
-                "week-hours": "Понеділок - П'ятниця: 7:00 - 21:00",
-                "weekend-hours": "Субота - Неділя: 8:00 - 22:00",
-                "footer-text": "Створюємо виняткові кавові враження з 2020 року.",
-                "rights-reserved": "Всі права захищені.",
-                "language": "Мова"
+                "footer-text": "Кав'ярня спеціальності в серці Бухареста"
             }
         };
 
-        // Currency conversion rates (approximate)
-        const currencyRates = {
-            ro: { symbol: "RON", rate: 1 },
-            en: { symbol: "$", rate: 0.22 },
-            uk: { symbol: "₴", rate: 8.5 }
-        };
-
-        // Current language
+        // Variabile globale
         let currentLanguage = 'ro';
+        let currentCategory = 'all';
 
-        // DOM Elements
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileMenuClose = document.querySelector('.mobile-menu-close');
-        const overlay = document.querySelector('.overlay');
-        const languageSelect = document.getElementById('language-select');
-        const mobileLanguageSelect = document.getElementById('mobile-language-select');
-
-        // Mobile Menu Toggle
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            overlay.classList.add('active');
-        });
-
-        mobileMenuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        overlay.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        // Language Change Handler
-        function changeLanguage(lang) {
-            currentLanguage = lang;
+        // Inițializare la încărcarea paginii
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afișează elementele meniului
+            displayMenuItems();
             
-            // Update language selectors
-            languageSelect.value = lang;
-            mobileLanguageSelect.value = lang;
-            
-            // Update all elements with data-key attribute
-            document.querySelectorAll('[data-key]').forEach(element => {
-                const key = element.getAttribute('data-key');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
+            // Setează evenimente pentru butoanele de categorie
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Elimină clasa active de la toate butoanele
+                    document.querySelectorAll('.category-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Adaugă clasa active la butonul apăsat
+                    this.classList.add('active');
+                    
+                    // Setează categoria curentă
+                    currentCategory = this.getAttribute('data-category');
+                    
+                    // Afișează elementele meniului filtrate
+                    displayMenuItems();
+                });
             });
             
-            // Update prices
-            updatePrices();
-        }
-
-        // Update prices based on selected language
-        function updatePrices() {
-            const currency = currencyRates[currentLanguage];
-            document.querySelectorAll('.menu-item-price').forEach(priceElement => {
-                const basePrice = parseFloat(priceElement.getAttribute('data-price'));
-                const convertedPrice = (basePrice * currency.rate).toFixed(2);
-                priceElement.textContent = `${convertedPrice} ${currency.symbol}`;
+            // Setează evenimente pentru butoanele de limbă
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Elimină clasa active de la toate butoanele
+                    document.querySelectorAll('.lang-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // Adaugă clasa active la butonul apăsat
+                    this.classList.add('active');
+                    
+                    // Setează limba curentă
+                    currentLanguage = this.getAttribute('data-lang');
+                    
+                    // Actualizează textul pe site
+                    updateLanguage();
+                });
             });
-        }
-
-        // Event listeners for language selectors
-        languageSelect.addEventListener('change', (e) => {
-            changeLanguage(e.target.value);
-        });
-
-        mobileLanguageSelect.addEventListener('change', (e) => {
-            changeLanguage(e.target.value);
-            mobileMenu.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        // Menu Category Filter
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const menuItems = document.querySelectorAll('.menu-item');
-        
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                const category = btn.getAttribute('data-category');
-                
-                menuItems.forEach(item => {
-                    if (category === 'all' || item.getAttribute('data-category') === category) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
+            
+            // Setează eveniment pentru hamburger menu
+            document.querySelector('.hamburger').addEventListener('click', function() {
+                this.classList.toggle('active');
+                document.querySelector('.nav-menu').classList.toggle('active');
+            });
+            
+            // Închide meniul mobil la click pe link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.querySelector('.hamburger').classList.remove('active');
+                    document.querySelector('.nav-menu').classList.remove('active');
                 });
             });
         });
 
-        // Smooth Scrolling for Anchor Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        // Funcție pentru afișarea elementelor meniului
+        function displayMenuItems() {
+            const menuGrid = document.getElementById('menu-items');
+            menuGrid.innerHTML = '';
+            
+            // Filtrează elementele după categorie
+            const filteredItems = currentCategory === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === currentCategory);
+            
+            // Adaugă elementele în grilă
+            filteredItems.forEach((item, index) => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.style.animationDelay = `${index * 0.1}s`;
                 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    mobileMenu.classList.remove('active');
-                    overlay.classList.remove('active');
+                // Determină numele și descrierea în funcție de limbă
+                let itemName, itemDescription;
+                if (currentLanguage === 'ro') {
+                    itemName = item.name;
+                    itemDescription = item.description;
+                } else if (currentLanguage === 'en') {
+                    itemName = item.name_en;
+                    itemDescription = item.description_en;
+                } else {
+                    itemName = item.name_uk;
+                    itemDescription = item.description_uk;
                 }
+                
+                menuItem.innerHTML = `
+                    <div class="menu-item-img">
+                        <i class="fas ${getIconForCategory(item.category)}"></i>
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>${itemName}</h3>
+                            <span class="menu-item-price">${item.price}</span>
+                        </div>
+                        <p class="menu-item-desc">${itemDescription}</p>
+                    </div>
+                `;
+                
+                menuGrid.appendChild(menuItem);
             });
-        });
+        }
 
-        // Initialize with Romanian language
-        changeLanguage('ro');
-
-        // Create floating elements
-        function createFloatingElements() {
-            const container = document.querySelector('.floating-elements');
-            for (let i = 0; i < 5; i++) {
-                const element = document.createElement('div');
-                element.className = 'floating-element';
-                const size = Math.random() * 60 + 40;
-                element.style.width = `${size}px`;
-                element.style.height = `${size}px`;
-                element.style.top = `${Math.random() * 100}%`;
-                element.style.left = `${Math.random() * 100}%`;
-                element.style.animationDelay = `${Math.random() * 6}s`;
-                element.style.opacity = Math.random() * 0.1 + 0.05;
-                container.appendChild(element);
+        // Funcție pentru a obține iconița potrivită pentru categorie
+        function getIconForCategory(category) {
+            switch(category) {
+                case 'coffee':
+                    return 'fa-coffee';
+                case 'tea':
+                    return 'fa-mug-hot';
+                case 'pastries':
+                    return 'fa-cookie-bite';
+                default:
+                    return 'fa-utensils';
             }
         }
 
-        createFloatingElements();
+        // Funcție pentru actualizarea limbii pe site
+        function updateLanguage() {
+            // Actualizează textul pentru elementele cu atributul data-key
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+            
+            // Reafișează meniul cu noile traduceri
+            displayMenuItems();
+        }
     </script>
 </body>
 </html>
